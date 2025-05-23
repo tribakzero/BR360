@@ -7,7 +7,7 @@ That's why I reverse engineered it and created this script that gets the data th
 
 ## Usage
 
-Just drag the bookmarklet to your browser's bookmarks bar: <a href="javascript:%22use%20strict%22;void%20function(){const%20a=ontdc(80,obtenerValorParametro(%22tkn%22),document.getElementById(%22usrSs%22).innerText),b=a.reduce((a,b)=%3E(a[b.NameAfectado]=a.hasOwnProperty(b.NameAfectado)%3Fa[b.NameAfectado]+b.TTReembolso:b.TTReembolso,a),{}),c=Object.entries(b).map(a=%3E{let[b,c]=a;return`${b}:%20$${c.toFixed(2)}`}).join(%22\n%22);alert(c)}();">BR36O</a>
+Just drag the bookmarklet to your browser's bookmarks bar: <a href="javascript:%22use%20strict%22;void%20function(){const%20a=ontdc(80,obtenerValorParametro(%22tkn%22),document.getElementById(%22usrSs%22).innerText),b=a.reduce((a,b)=%3E(a.hasOwnProperty(b.NameAfectado)%3Fa[b.NameAfectado]+=b.TTReembolso:a[b.NameAfectado]=b.TTReembolso,a),{}),c=Object.entries(b).map(a=%3E{let[b,c]=a;return`${b}:%20$${c.toFixed(2)}`}).join(%22\n%22);alert(c)}();">BR36O</a>
 
 Then go to your Risco 360 website and click BR360 bookmarklet once to see a new window pop-up with the totals grouped by user.
 
@@ -18,12 +18,16 @@ If you want to know what does the script do exactly, here is a less cryptic vers
 ```javascript
 // This function retrieves Risco 360 data
 const records = ontdc(
-  80, // Internal Code for reimbursement requests
-  obtenerValorParametro('tkn'), // Your auth token
-  document.getElementById("usrSs").innerText // Your user ID
+  // Internal Code for reimbursement requests
+  80,
+  // Your auth token
+  obtenerValorParametro('tkn'),
+  // Your user ID
+  document.getElementById("usrSs").innerText
 );
 
-const groupedByUser = records.reduce((totals, record) => {
+// Groups the reimbursement amounts by user
+const grouped = records.reduce((totals, record) => {
   // Checks if the name already exists
   totals.hasOwnProperty(record.NameAfectado)
     // So it adds the current value to the accumulated
@@ -34,7 +38,7 @@ const groupedByUser = records.reduce((totals, record) => {
 },{});
 
 // Stores the data with the format: "NAME: $AMOUNT"
-const prettyPrint = Object.entries(groupedByUser).map(
+const prettyPrint = Object.entries(grouped).map(
   ([name, amount]) => `${name}: $${ amount.toFixed(2) }`
 ).join('\n');
 
