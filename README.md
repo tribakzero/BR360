@@ -3,11 +3,12 @@
 
 There is a common issue with the insurance provider and their minor medical expenses service, they don't let you know how much you have expended per user, making it hard to keep track of it and know how much you still can reimburse.
 
-That's why I reverse engineered it and created this script that gets the data the same way they do and serves it back to you in the way you want it: split per user instead of as a whole.
+That's why I reverse engineered it and created this script that gets the data the same way they do and serves it back to you in the way you want it: split by user instead of as a single big number.
 
 ## Usage
 
-To use it just drag our bookmarklet: <a href="javascript:%22use%20strict%22;void%20function(){const%20a=ontdc(80,obtenerValorParametro(%22tkn%22),document.getElementById(%22usrSs%22).innerText),b=a.reduce((a,b)=%3E(a[b.NameAfectado]=a.hasOwnProperty(b.NameAfectado)%3Fa[b.NameAfectado]+b.TTReembolso:b.TTReembolso,a),{}),c=Object.entries(b).map(a=%3E{let[b,c]=a;return`${b}:%20$${c.toFixed(2)}`}).join(%22\n%22);alert(c)}();">BR36O</a> to your browser's bookmark bar and click on it from Risco 360 website. You will see a new window pop-up with the amount per user.
+To use it just drag our bookmarklet to your browser's bookmark bar: <a href="javascript:%22use%20strict%22;void%20function(){const%20a=ontdc(80,obtenerValorParametro(%22tkn%22),document.getElementById(%22usrSs%22).innerText),b=a.reduce((a,b)=%3E(a[b.NameAfectado]=a.hasOwnProperty(b.NameAfectado)%3Fa[b.NameAfectado]+b.TTReembolso:b.TTReembolso,a),{}),c=Object.entries(b).map(a=%3E{let[b,c]=a;return`${b}:%20$${c.toFixed(2)}`}).join(%22\n%22);alert(c)}();">BR36O</a>
+Click on it from the Risco 360 website and you will see a new window pop-up with the totals grouped by user.
 
 ## How it works
 
@@ -30,7 +31,7 @@ const prettyPrint = Object.entries(groupedByUser).map(([name, amount]) => `${nam
 alert(prettyPrint); // Prints the values out
 ```
 
-In general terms, it uses the same function they use internally to get your records, then puts it into a hashmap to get the totals per user and then sends a human readable version of it to you.
+In general terms, it uses the same function they use internally to get your records, then puts it into a hashmap to get the totals by each user and then sends a human readable version of it to you.
 
 ## Credits
 
