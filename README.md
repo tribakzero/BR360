@@ -23,7 +23,7 @@ const records = ontdc(
   document.getElementById("usrSs").innerText // Your user ID
 );
 
-const groupedByUser = records.reduce((totals, record)=> {
+const groupedByUser = records.reduce((totals, record) => {
   // Checks if the name already exists
   totals.hasOwnProperty(record.NameAfectado)
     // So it adds the current value to the accumulated
