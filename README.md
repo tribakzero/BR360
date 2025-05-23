@@ -16,7 +16,8 @@ Then go to your Risco 360 website and click BR360 bookmarklet once to see a new 
 If you want to know what does the script do exactly, here is a less cryptic version of it.
 
 ```javascript
-const records = ontdc( // This general function retrieves all data they need depending on the parameters
+// This general function retrieves all data they need depending on the parameters
+const records = ontdc(
   80, // Internal Code for reimbursement requests
   obtenerValorParametro('tkn'), // Your auth token
   document.getElementById("usrSs").innerText // Your user ID
@@ -24,10 +25,13 @@ const records = ontdc( // This general function retrieves all data they need dep
 
 const groupedByUser = records.reduce((totals, record)=> {
   totals.hasOwnProperty(record.NameAfectado) // Checks if the name already exists
-    ? totals[record.NameAfectado] = totals[record.NameAfectado] + record.TTReembolso // So it adds the current value to the accumulated
-    : totals[record.NameAfectado ] = record.TTReembolso; return totals; },{}); // Otherwise, it creates the new record
+    // So it adds the current value to the accumulated
+    ? totals[record.NameAfectado] = totals[record.NameAfectado] + record.TTReembolso
+    // Otherwise, it creates the new record
+    : totals[record.NameAfectado ] = record.TTReembolso; return totals; },{});
 
-const prettyPrint = Object.entries(groupedByUser).map(([name, amount]) => `${name}: $${ amount.toFixed(2) }`).join('\n'); // Stores the data with the format: "NAME: $AMOUNT" with a new line in between
+// Stores the data with the format: "NAME: $AMOUNT" with a new line in between
+const prettyPrint = Object.entries(groupedByUser).map(([name, amount]) => `${name}: $${ amount.toFixed(2) }`).join('\n');
 
 alert(prettyPrint); // Prints the values out
 ```
