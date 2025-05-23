@@ -7,7 +7,7 @@ That's why I reverse engineered it and created this script that gets the data th
 
 ## Usage
 
-Just drag the bookmarklet to your browser's bookmarks bar: <a href="javascript:%22use%20strict%22;void%20function(){const%20a=ontdc(80,obtenerValorParametro(%22tkn%22),document.getElementById(%22usrSs%22).innerText),b=a.reduce((a,b)=%3E(a.hasOwnProperty(b.NameAfectado)%3Fa[b.NameAfectado]+=b.TTReembolso:a[b.NameAfectado]=b.TTReembolso,a),{}),c=Object.entries(b).map(a=%3E{let[b,c]=a;return`${b}:%20$${c.toFixed(2)}`}).join(%22\n%22);alert(c)}();">BR36O</a>
+Just drag the bookmarklet to your browser's bookmarks bar: <a href="javascript:%22use%20strict%22;void%20function(){const%20a=ontdc(80,obtenerValorParametro(%22tkn%22),document.getElementById(%22usrSs%22).innerText),b=a.reduce((a,b)=%3E1===b.Estatus%3Fa:(a.hasOwnProperty(b.NameAfectado)%3Fa[b.NameAfectado]+=b.TTReembolso:a[b.NameAfectado]=b.TTReembolso,a),{}),c=Object.entries(b).map(a=%3E{let[b,c]=a;return`${b}:%20$${c.toFixed(2)}`}).join(%22\n%22);alert(c)}();">BR36O</a>
 
 Then go to your Risco 360 website and click BR360 bookmarklet once to see a new window pop-up with the totals grouped by user.
 
