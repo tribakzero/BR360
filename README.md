@@ -28,7 +28,10 @@ const records = ontdc(
 
 // Groups the reimbursement amounts by user
 const grouped = records.reduce((totals, record) => {
-  // Checks if the name already exists
+  // We only care about already paid requests
+  if(record.Estatus === 1) return totals;
+
+// Checks if the name already exists
   if(totals.hasOwnProperty(record.NameAfectado)) {
     // So it adds the current value to the accumulated
     totals[record.NameAfectado] += record.TTReembolso
