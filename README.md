@@ -29,15 +29,20 @@ const records = ontdc(
 // Groups the reimbursement amounts by user
 const grouped = records.reduce((totals, record) => {
   // Checks if the name already exists
-  totals.hasOwnProperty(record.NameAfectado)
+  if(totals.hasOwnProperty(record.NameAfectado)) {
     // So it adds the current value to the accumulated
-    ? totals[record.NameAfectado] += record.TTReembolso
+    totals[record.NameAfectado] += record.TTReembolso
+  }
+  else {
     // Otherwise, it creates the new record
-    : totals[record.NameAfectado ] = record.TTReembolso;
+    totals[record.NameAfectado ] = record.TTReembolso;
+  }
+
+  // And saves it
   return totals;
 },{});
 
-// Stores the data with the format: "NAME: $AMOUNT"
+// Writes the data with the format: "NAME: $AMOUNT"
 const prettyPrint = Object.entries(grouped).map(
   ([name, amount]) => `${name}: $${amount.toFixed(2)}`
 ).join('\n');
