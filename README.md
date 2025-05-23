@@ -39,7 +39,7 @@ const grouped = records.reduce((totals, record) => {
 
 // Stores the data with the format: "NAME: $AMOUNT"
 const prettyPrint = Object.entries(grouped).map(
-  ([name, amount]) => `${name}: $${ amount.toFixed(2) }`
+  ([name, amount]) => `${name}: $${amount.toFixed(2)}`
 ).join('\n');
 
 alert(prettyPrint); // Prints the values out
